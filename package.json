@@ -1,0 +1,30 @@
+{
+  "name": "@btzy/nativefiledialog-extended",
+  "version": "0.1.0",
+  "description": "Cross-platform native file dialogs (Open, Save, Pick Folder) for Bun.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "bun test",
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun --minify",
+    "lint": "bun x eslint .",
+    "format": "bun x prettier --write ."
+  },
+  "keywords": [
+    "bun",
+    "native",
+    "file",
+    "dialog",
+    "nfd",
+    "nativefiledialog",
+    "cross-platform"
+  ],
+  "author": "btzy",
+  "license": "zlib",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "bun-types": "latest",
+    "typescript": "^5.0.0"
+  }
+}
