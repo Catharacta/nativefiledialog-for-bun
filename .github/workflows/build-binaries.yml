@@ -35,11 +35,13 @@ jobs:
 
       - name: Install Linux Dependencies
         if: matrix.os == 'ubuntu-latest'
+        shell: bash
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev
 
       - name: Configure CMake
+        shell: bash
         run: |
           cmake -B vendor/nfd-src/build -S vendor/nfd-src \
             -DBUILD_SHARED_LIBS=ON \
@@ -47,14 +49,17 @@ jobs:
             ${{ matrix.os == 'macos-latest' && format('-DCMAKE_OSX_ARCHITECTURES={0}', matrix.arch) || '' }}
 
       - name: Build
+        shell: bash
         run: cmake --build vendor/nfd-src/build --config Release
 
       - name: Copy Binary (Windows)
         if: matrix.os == 'windows-latest'
+        shell: bash
         run: cp vendor/nfd-src/build/src/Release/nfd.dll ${{ matrix.artifact_name }}
 
       - name: Copy Binary (macOS/Linux)
         if: matrix.os != 'windows-latest'
+        shell: bash
         run: |
           # The name might be libnfd.dylib or libnfd.so depending on build
           FILE=$(find vendor/nfd-src/build/src -name "libnfd.*" -o -name "nfd.*" | grep -E "\.(dylib|so)$" | head -n 1)
