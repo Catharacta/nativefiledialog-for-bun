@@ -1,5 +1,5 @@
 {
-  "name": "@btzy/nativefiledialog-extended",
+  "name": "nativefiledialog-for-bun",
   "version": "0.1.0",
   "description": "Cross-platform native file dialogs (Open, Save, Pick Folder) for Bun.",
   "main": "dist/index.js",
@@ -19,10 +19,11 @@
     "dialog",
     "nfd",
     "nativefiledialog",
-    "cross-platform"
+    "cross-platform",
+    "native-file-dialog"
   ],
-  "author": "btzy",
-  "license": "zlib",
+  "author": "Catharacta",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^25.5.0",
     "bun-types": "latest",

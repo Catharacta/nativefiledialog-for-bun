@@ -5,7 +5,8 @@ import { fileURLToPath } from "node:url";
 
 const PLATFORM = os.platform();
 const ARCH = os.arch();
-const VERSION = "v0.1.0"; // 実際には package.json から取得するかタグに合わせる
+const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
+const VERSION = `v${pkg.version}`;
 const REPO = "Catharacta/nativefiledialog-for-bun";
 
 const BINARY_MAP: Record<string, Record<string, string>> = {
