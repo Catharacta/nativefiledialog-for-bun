@@ -7,6 +7,5 @@ dist/
 .vscode/
 package-lock.json
 pnpm-lock.yaml
-vendor/
 build/
 bin/
