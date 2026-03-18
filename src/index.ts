@@ -8,10 +8,24 @@ import {
 import * as windows from './backends/windows';
 import * as macos from './backends/macos';
 import * as linux from './backends/linux';
+import * as ffi from './backends/ffi';
 
 export * from './types';
 
 function getBackend() {
+  // Try FFI first
+  try {
+    ffi.initFFI();
+    if (ffi.isFFIAvailable()) {
+      console.log("Using FFI backend");
+      return ffi;
+    }
+  } catch (e) {
+    console.error("FFI initialization failed", e);
+  }
+
+  console.log("Falling back to script-based backend");
+  // Fallback to script-based implementations
   switch (process.platform) {
     case 'win32':
       return windows;

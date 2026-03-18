@@ -15,6 +15,7 @@ export interface OpenFileDialogOptions extends DialogOptions {
 
 export interface SaveFileDialogOptions extends DialogOptions {
   confirmOverwrite?: boolean;
+  defaultName?: string;
 }
 
 export class NativeDialogError extends Error {
