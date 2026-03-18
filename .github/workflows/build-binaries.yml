@@ -19,7 +19,7 @@ jobs:
             arch: x64
             artifact_name: nfd-win-x64.dll
           - os: macos-latest
-            arch: x64
+            arch: x86_64
             artifact_name: nfd-mac-x64.dylib
           - os: macos-latest
             arch: arm64
