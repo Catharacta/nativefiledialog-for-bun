@@ -1,6 +1,6 @@
 {
   "name": "nativefiledialog-for-bun",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Cross-platform native file dialogs (Open, Save, Pick Folder) for Bun.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -10,7 +10,10 @@
     "build": "rm -rf dist && bun x tsc --declaration --emitDeclarationOnly --outDir dist && bun build ./src/index.ts --outdir ./dist --target bun --minify",
     "lint": "bun x eslint .",
     "format": "bun x prettier --write .",
-    "postinstall": "bun run scripts/install-binary.ts"
+    "postinstall": "bun run scripts/install-binary.ts",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major"
   },
   "files": [
     "dist",
