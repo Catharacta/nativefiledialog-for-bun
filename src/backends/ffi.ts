@@ -28,8 +28,42 @@ export function isFFIAvailable(): boolean {
   return nfdLib !== null;
 }
 
+/**
+ * Windows の高解像度 (DPI) 設定を最適化します。
+ * プロセスが「ぼやけた」状態でロックされる前に呼び出す必要があります。
+ */
+function setupWindowsDpiAwareness() {
+  if (process.platform !== 'win32') return;
+
+  try {
+    const user32 = dlopen("user32.dll", {
+      SetProcessDpiAwarenessContext: {
+        args: [FFIType.ptr],
+        returns: FFIType.bool,
+      },
+      SetProcessDPIAware: {
+        args: [],
+        returns: FFIType.bool,
+      }
+    });
+
+    // PerMonitorV2 (-4) を優先的に試行
+    if (!user32.symbols.SetProcessDpiAwarenessContext(-4 as any)) {
+      // 失敗した場合は古い API を試行
+      user32.symbols.SetProcessDPIAware();
+    }
+  } catch (e) {
+    // 静かに無視（DLLが無い、または権限が無い場合など）
+  }
+}
+
 export function initFFI() {
   if (nfdLib) return; // already initialized
+
+  // Windows の場合は真っ先に DPI 設定を試みる
+  if (process.platform === 'win32') {
+    setupWindowsDpiAwareness();
+  }
 
   // Determine library name
   let libName = '';
@@ -43,6 +77,7 @@ export function initFFI() {
   // Common library search paths
   const searchPaths = [
     path.join(__dirname, '..', '..', 'bin', process.platform, process.arch, libName),
+    path.join(__dirname, '..', '..', 'bin', `nfd-${process.platform === 'win32' ? 'win' : process.platform === 'darwin' ? 'mac' : 'linux'}-${process.arch === 'x64' ? 'x64' : 'arm64'}${process.platform === 'win32' ? '.dll' : process.platform === 'darwin' ? '.dylib' : '.so'}`),
     path.join(__dirname, '..', '..', 'bin', libName),
     libName // System path fallback
   ];
