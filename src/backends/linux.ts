@@ -18,7 +18,7 @@ export async function openFile(options: OpenFileDialogOptions): Promise<string |
   const proc = spawnSync(['zenity', ...args]);
   const output = proc.stdout.toString().trim();
   
-  return proc.status === 0 ? output : null;
+  return proc.exitCode === 0 ? output : null;
 }
 
 export async function openFiles(options: OpenFileDialogOptions): Promise<string[] | null> {
@@ -29,7 +29,7 @@ export async function openFiles(options: OpenFileDialogOptions): Promise<string[
   const proc = spawnSync(['zenity', ...args]);
   const output = proc.stdout.toString().trim();
   
-  if (proc.status !== 0 || !output) return null;
+  if (proc.exitCode !== 0 || !output) return null;
   return output.split('|');
 }
 
@@ -42,7 +42,7 @@ export async function saveFile(options: SaveFileDialogOptions): Promise<string |
   const proc = spawnSync(['zenity', ...args]);
   const output = proc.stdout.toString().trim();
   
-  return proc.status === 0 ? output : null;
+  return proc.exitCode === 0 ? output : null;
 }
 
 export async function pickFolder(options: DialogOptions): Promise<string | null> {
@@ -53,5 +53,17 @@ export async function pickFolder(options: DialogOptions): Promise<string | null>
   const proc = spawnSync(['zenity', ...args]);
   const output = proc.stdout.toString().trim();
   
-  return proc.status === 0 ? output : null;
+  return proc.exitCode === 0 ? output : null;
+}
+
+export async function pickFolders(options: DialogOptions): Promise<string[] | null> {
+  const args = ['--file-selection', '--directory', '--multiple', '--separator=|'];
+  if (options.title) args.push(`--title=${options.title}`);
+  if (options.defaultPath) args.push(`--filename=${options.defaultPath}`);
+
+  const proc = spawnSync(['zenity', ...args]);
+  const output = proc.stdout.toString().trim();
+  
+  if (proc.exitCode !== 0 || !output) return null;
+  return output.split('|');
 }

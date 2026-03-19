@@ -2,7 +2,8 @@ import {
   OpenFileDialogOptions, 
   SaveFileDialogOptions, 
   DialogOptions,
-  PlatformNotSupportedError
+  PlatformNotSupportedError,
+  DialogBackend
 } from './types';
 
 import * as windows from './backends/windows';
@@ -12,30 +13,38 @@ import * as ffi from './backends/ffi';
 
 export * from './types';
 
-function getBackend() {
+let cachedBackend: DialogBackend | null = null;
+
+function getBackend(): DialogBackend {
+  if (cachedBackend) return cachedBackend;
+
   // Try FFI first
   try {
     ffi.initFFI();
     if (ffi.isFFIAvailable()) {
-      console.log("Using FFI backend");
-      return ffi;
+      cachedBackend = ffi as unknown as DialogBackend;
+      return cachedBackend;
     }
   } catch (e) {
-    console.error("FFI initialization failed", e);
+    // FFI initialization failed
   }
 
-  console.log("Falling back to script-based backend");
   // Fallback to script-based implementations
   switch (process.platform) {
     case 'win32':
-      return windows;
+      cachedBackend = windows as DialogBackend;
+      break;
     case 'darwin':
-      return macos;
+      cachedBackend = macos as DialogBackend;
+      break;
     case 'linux':
-      return linux;
+      cachedBackend = linux as DialogBackend;
+      break;
     default:
       throw new PlatformNotSupportedError(process.platform);
   }
+
+  return cachedBackend;
 }
 
 /**
@@ -60,6 +69,14 @@ export async function openFiles(options: OpenFileDialogOptions = {}): Promise<st
 export async function pickFolder(options: DialogOptions = {}): Promise<string | null> {
   const backend = getBackend();
   return backend.pickFolder(options);
+}
+
+/**
+ * 複数のフォルダを選択するダイアログを表示します。
+ */
+export async function pickFolders(options: DialogOptions = {}): Promise<string[] | null> {
+  const backend = getBackend();
+  return backend.pickFolders(options);
 }
 
 /**

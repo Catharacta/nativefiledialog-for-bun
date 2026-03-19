@@ -100,3 +100,10 @@ if ($res -eq 'OK') {
   
   return output || null;
 }
+
+export async function pickFolders(options: DialogOptions): Promise<string[] | null> {
+  // FolderBrowserDialog doesn't support multiple folders easily.
+  // We'll return just the single selected folder as an array if successful.
+  const path = await pickFolder(options);
+  return path ? [path] : null;
+}

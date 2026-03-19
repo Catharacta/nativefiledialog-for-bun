@@ -7,6 +7,15 @@ export interface DialogOptions {
   title?: string;
   defaultPath?: string;
   filters?: FileFilter[];
+  parentWindow?: any;
+}
+
+export interface DialogBackend {
+  openFile(options: OpenFileDialogOptions): Promise<string | null>;
+  openFiles(options: OpenFileDialogOptions): Promise<string[] | null>;
+  saveFile(options: SaveFileDialogOptions): Promise<string | null>;
+  pickFolder(options: DialogOptions): Promise<string | null>;
+  pickFolders(options: DialogOptions): Promise<string[] | null>;
 }
 
 export interface OpenFileDialogOptions extends DialogOptions {
