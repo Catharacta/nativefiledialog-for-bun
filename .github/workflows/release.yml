@@ -1,9 +1,13 @@
+# タグが打たれたときに npm への自動公開（Trusted Publishing）を行うワークフロー。
 name: Release
 
 on:
   push:
     tags:
       - 'v*'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   release:
@@ -12,11 +16,11 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           registry-url: 'https://registry.npmjs.org/'
-      - uses: oven-sh/setup-bun@v1
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
       

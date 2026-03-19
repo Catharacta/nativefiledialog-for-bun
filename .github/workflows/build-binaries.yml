@@ -1,3 +1,4 @@
+# 各プラットフォーム向けのネイティブバイナリをビルドし、GitHub Release にアップロードするワークフロー。
 name: Build Binaries
 
 on:

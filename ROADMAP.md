@@ -4,31 +4,28 @@
 
 ## マイルストーン
 
-### M1: 計画策定と設計 (現在)
+### M1: 計画策定と設計
 - [x] 要件定義の確認 (`nativefiledialog-bun-requirements.md`)
-- [ ] 日本語での実装計画書とロードマップの作成
-- [ ] ユーザーによる設計・計画の承認
+- [x] 日本語での実装計画書とロードマップの作成
+- [x] ユーザーによる設計・計画の承認
 
 ### M2: フェーズ1 - スクリプトベースの実装（プロトタイプ）
-- [ ] プロジェクト構造の初期化 (`package.json`, `tsconfig.json`, `pnpm-lock.yaml`)
-- [ ] 各プラットフォームのスクリプトバックエンド実装
-    - macOS: `osascript` (AppleScript)
-    - Windows: `PowerShell`
-    - Linux: `zenity` / `kdialog`
-- [ ] 基本的な API 疎通確認とユニットテストの整備
+- [x] プロジェクト構造の初期化 (`package.json`, `tsconfig.json`, `pnpm-lock.yaml`)
+- [x] 各プラットフォームのスクリプトバックエンド実装
+- [x] 基本的な API 疎通確認とユニットテストの整備
 
 ### M3: テスト環境と CI/CD の構築
-- [ ] `bun test` による自動テスト環境の構築
-- [ ] GitHub Actions によるマルチプラットフォーム CI マトリクスの設定
-    - Linux 上での GUI テストのための `Xvfb` 設定
-- [ ] 各 OS でのスモークテストの自動化
+- [x] `bun test` による自動テスト環境の構築
+- [x] GitHub Actions によるマルチプラットフォーム CI マトリクスの設定
+- [x] 各 OS でのスモークテストの自動化
 
 ### M4: フェーズ2 - FFI (Bun.dlopen) によるネイティブバインド
-- [ ] `nativefiledialog-extended` を使用した共有ライブラリのビルド環境構築
-- [ ] `Bun.dlopen` を用いた TypeScript バインディングの実装
-- [ ] スクリプト版と FFI 版の自動フォールバックロジックの実装
+- [x] `nativefiledialog-extended` を使用した共有ライブラリのビルド環境構築
+- [x] `Bun.dlopen` を用いた TypeScript バインディングの実装
+- [x] スクリプト版と FFI 版の自動フォールバックロジックの実装
 
 ### M5: リリース準備と配布パイプライン
-- [ ] Prebuilt バイナリの自動ビルドとリリースフローの構築
-- [ ] `npm` パッケージの公開準備 (スコープ: `@btzy/`)
-- [ ] ドキュメント (README.md) の完成と型定義の整備
+- [x] Prebuilt バイナリの自動ビルドとリリースフローの構築
+- [x] `npm` パッケージの公開準備
+- [x] ドキュメント (README.md, README.ja.md) の完成と型定義の整備
+- [x] v0.2.0 リリース（多言語ドキュメント対応）

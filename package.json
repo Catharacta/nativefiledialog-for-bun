@@ -1,6 +1,6 @@
 {
   "name": "nativefiledialog-for-bun",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Cross-platform native file dialogs (Open, Save, Pick Folder) for Bun.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
