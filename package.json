@@ -1,7 +1,15 @@
 {
   "name": "nativefiledialog-for-bun",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Cross-platform native file dialogs (Open, Save, Pick Folder) for Bun.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Catharacta/nativefiledialog-for-bun.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Catharacta/nativefiledialog-for-bun/issues"
+  },
+  "homepage": "https://github.com/Catharacta/nativefiledialog-for-bun#readme",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
