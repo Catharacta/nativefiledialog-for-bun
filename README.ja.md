@@ -38,24 +38,41 @@ const file = await nfd.openFile({
 });
 console.log(file); // "/path/to/file.png" またはキャンセル時は null
 
+// 複数ファイルを開く
+const files = await nfd.openFiles();
+console.log(files); // ["/path/1.png", "/path/2.png"] または null
+
 // フォルダを選択する
 const folder = await nfd.pickFolder();
 console.log(folder);
+
+// 複数フォルダを選択する
+const folders = await nfd.pickFolders();
+console.log(folders);
 
 // ファイルを保存する
 const savePath = await nfd.saveFile({
   defaultName: "data.json",
   filters: [{ name: "JSON", extensions: ["json"] }]
 });
+
+// 親ウィンドウのサポート（FFI バックエンドのみ）
+// ネイティブウィンドウハンドル（Windows なら HWND など）を渡して、ダイアログをモーダルにします
+const fileWithParent = await nfd.openFile({
+  parentWindow: windowHandle // number または bigint
+});
 ```
 
 ## 🛠 プラットフォーム・サポート
 
-| OS | FFI バックエンド | スクリプト・フォールバック |
-| --- | --- | --- |
-| **Windows** | Win32 API (`nfd.dll`) | PowerShell (System.Windows.Forms) |
-| **macOS** | AppKit (`libnfd.dylib`) | AppleScript (osascript) |
-| **Linux** | GTK3 (`libnfd.so`) | Zenity |
+| OS | FFI バックエンド | スクリプト・フォールバック | pickFolders | parentWindow |
+| --- | --- | --- | --- | --- |
+| **Windows** | Win32 API (`nfd.dll`) | PowerShell | ✅ | ✅ (FFI) |
+| **macOS** | AppKit (`libnfd.dylib`) | AppleScript | ✅ | ✅ (FFI) |
+| **Linux** | GTK3 (`libnfd.so`) | Zenity | ✅ | ✅ (FFI) |
+
+> [!NOTE]
+> `parentWindow` サポートは FFI バックエンドでのみ有効です。スクリプト・フォールバックにハンドルが渡された場合は無視されます。
 
 ## 📜 ライセンス
 

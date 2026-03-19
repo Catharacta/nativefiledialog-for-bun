@@ -12,7 +12,9 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["bun-types"]
+    "types": ["bun-types"],
+    "declaration": true,
+    "outDir": "dist"
   },
   "include": ["src/**/*", "tests/**/*"]
 }

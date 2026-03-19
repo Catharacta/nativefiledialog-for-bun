@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "bun test",
-    "build": "bun build ./src/index.ts --outdir ./dist --target bun --minify",
+    "build": "rm -rf dist && bun x tsc --declaration --emitDeclarationOnly --outDir dist && bun build ./src/index.ts --outdir ./dist --target bun --minify",
     "lint": "bun x eslint .",
     "format": "bun x prettier --write .",
     "postinstall": "bun run scripts/install-binary.ts"

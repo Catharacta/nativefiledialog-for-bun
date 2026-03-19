@@ -38,24 +38,41 @@ const file = await nfd.openFile({
 });
 console.log(file); // "/path/to/file.png" or null if cancelled
 
+// Open multiple files
+const files = await nfd.openFiles();
+console.log(files); // ["/path/1.png", "/path/2.png"] or null
+
 // Select a folder
 const folder = await nfd.pickFolder();
 console.log(folder);
+
+// Select multiple folders
+const folders = await nfd.pickFolders();
+console.log(folders);
 
 // Save a file
 const savePath = await nfd.saveFile({
   defaultName: "data.json",
   filters: [{ name: "JSON", extensions: ["json"] }]
 });
+
+// parentWindow support (FFI only)
+// Pass a native window handle (e.g., HWND on Windows) to make the dialog modal
+const fileWithParent = await nfd.openFile({
+  parentWindow: windowHandle // number or bigint
+});
 ```
 
 ## 🛠 Platform Support
 
-| OS | FFI Backend | Script Fallback |
-| --- | --- | --- |
-| **Windows** | Win32 API (`nfd.dll`) | PowerShell (System.Windows.Forms) |
-| **macOS** | AppKit (`libnfd.dylib`) | AppleScript (osascript) |
-| **Linux** | GTK3 (`libnfd.so`) | Zenity |
+| OS | FFI Backend | Script Fallback | pickFolders | parentWindow |
+| --- | --- | --- | --- | --- |
+| **Windows** | Win32 API (`nfd.dll`) | PowerShell | ✅ | ✅ (FFI) |
+| **macOS** | AppKit (`libnfd.dylib`) | AppleScript | ✅ | ✅ (FFI) |
+| **Linux** | GTK3 (`libnfd.so`) | Zenity | ✅ | ✅ (FFI) |
+
+> [!NOTE]
+> `parentWindow` support requires the FFI backend. Handlers passed to the script fallback will currently be ignored.
 
 ## 📜 License
 
