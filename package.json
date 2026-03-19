@@ -12,6 +12,14 @@
     "format": "bun x prettier --write .",
     "postinstall": "bun run scripts/install-binary.ts"
   },
+  "files": [
+    "dist",
+    "bin",
+    "scripts",
+    "README.md",
+    "README.ja.md",
+    "LICENSE"
+  ],
   "keywords": [
     "bun",
     "native",
