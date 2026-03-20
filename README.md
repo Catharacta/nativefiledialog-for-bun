@@ -53,11 +53,13 @@ const savePath = await nfd.saveFile({
   filters: [{ name: "JSON", extensions: ["json"] }]
 });
 
-// parentWindow support (FFI only)
-// Pass a native window handle (e.g., HWND on Windows) to make the dialog modal
 const fileWithParent = await nfd.openFile({
   parentWindow: windowHandle // number or bigint
 });
+
+// Custom Library Path (useful for bundled apps like ElectroBun)
+// Call this BEFORE any other nfd calls.
+nfd.setLibraryPath("/path/to/your/bin/directory");
 ```
 
 ## 🛠 Platform Support

@@ -62,6 +62,15 @@ export function getBackendName(): string {
 }
 
 /**
+ * ネイティブライブラリ (DLL/dylib/so) の探索パスを明示的に設定します。
+ * 最初のダイアログ呼び出しの前に実行する必要があります。
+ * @param path ライブラリファイルが配置されているディレクトリへのパス
+ */
+export function setLibraryPath(path: string) {
+  ffi.setLibraryPath(path);
+}
+
+/**
  * ファイルを1つ選択するダイアログを表示します。
  */
 export async function openFile(options: OpenFileDialogOptions = {}): Promise<string | null> {

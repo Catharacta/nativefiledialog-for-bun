@@ -53,11 +53,13 @@ const savePath = await nfd.saveFile({
   filters: [{ name: "JSON", extensions: ["json"] }]
 });
 
-// 親ウィンドウのサポート（FFI バックエンドのみ）
-// ネイティブウィンドウハンドル（Windows なら HWND など）を渡して、ダイアログをモーダルにします
 const fileWithParent = await nfd.openFile({
   parentWindow: windowHandle // number または bigint
 });
+
+// カスタムライブラリパスの設定 (ElectroBun などのバンドル環境で有用)
+// 最初のダイアログ呼び出しの前に実行する必要があります。
+nfd.setLibraryPath("/path/to/your/bin/directory");
 ```
 
 ## 🛠 プラットフォーム・サポート

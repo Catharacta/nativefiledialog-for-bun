@@ -23,6 +23,16 @@ const NFD_WINDOW_HANDLE_TYPE_X11 = 3;
 
 let nfdLib: ReturnType<typeof dlopen> | null = null;
 let nfdBoundFuncs: any = null;
+let customLibDir: string | null = null;
+
+/**
+ * カスタムライブラリディレクトリを設定します。
+ * initFFI() が実行される前に呼び出す必要があります。
+ * @param dir DLL/dylib/so が配置されているディレクトリのパス
+ */
+export function setLibraryPath(dir: string) {
+  customLibDir = dir;
+}
 
 export function isFFIAvailable(): boolean {
   return nfdLib !== null;
@@ -80,12 +90,19 @@ export function initFFI() {
   const binDir = isDist ? path.join(currentDir, '..', 'bin') : path.join(currentDir, '..', '..', 'bin');
 
   // Common library search paths
-  const searchPaths = [
+  const searchPaths = [];
+
+  // Prioritize custom directory if provided
+  if (customLibDir) {
+    searchPaths.push(path.join(customLibDir, libName));
+  }
+
+  searchPaths.push(
     path.join(binDir, process.platform, process.arch, libName),
     path.join(binDir, `nfd-${process.platform === 'win32' ? 'win' : process.platform === 'darwin' ? 'mac' : 'linux'}-${process.arch === 'x64' ? 'x64' : 'arm64'}${process.platform === 'win32' ? '.dll' : process.platform === 'darwin' ? '.dylib' : '.so'}`),
     path.join(binDir, libName),
     libName // System path fallback
-  ];
+  );
 
   for (const p of searchPaths) {
     try {
