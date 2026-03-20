@@ -1,6 +1,6 @@
 {
   "name": "nativefiledialog-for-bun",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Cross-platform native file dialogs (Open, Save, Pick Folder) for Bun.",
   "repository": {
     "type": "git",

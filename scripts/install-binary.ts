@@ -5,7 +5,9 @@ import { fileURLToPath } from "node:url";
 
 const PLATFORM = os.platform();
 const ARCH = os.arch();
-const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
+const __filename = fileURLToPath(import.meta.url);
+const projectRoot = path.join(path.dirname(__filename), "..");
+const pkg = JSON.parse(fs.readFileSync(path.join(projectRoot, "package.json"), "utf8"));
 const VERSION = `v${pkg.version}`;
 const REPO = "Catharacta/nativefiledialog-for-bun";
 
@@ -35,7 +37,7 @@ async function install() {
     return;
   }
 
-  const destDir = path.join(process.cwd(), "bin", PLATFORM, ARCH);
+  const destDir = path.join(projectRoot, "bin", PLATFORM, ARCH);
   const ext = PLATFORM === "win32" ? ".dll" : PLATFORM === "darwin" ? ".dylib" : ".so";
   const destPath = path.join(destDir, `nfd${ext}`);
 

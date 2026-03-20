@@ -16,7 +16,7 @@ describe("Native File Dialog Backend Verification", () => {
     const existsAsync = promisify(exists);
     const path = require("path");
     
-    const dllPath = path.resolve(process.cwd(), 'bin', 'nfd-win-x64.dll');
+    const dllPath = path.resolve(import.meta.dir, '..', 'bin', 'nfd-win-x64.dll');
     const isExist = await existsAsync(dllPath);
     expect(isExist).toBe(true);
   });

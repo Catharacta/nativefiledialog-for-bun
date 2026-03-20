@@ -1,7 +1,7 @@
 import { dlopen, FFIType } from 'bun:ffi';
 import * as path from 'path';
 
-const libPath = path.resolve(process.cwd(), 'bin', 'nfd-win-x64.dll');
+const libPath = path.resolve(import.meta.dir, '..', 'bin', 'nfd-win-x64.dll');
 console.log(`Checking library at: ${libPath}`);
 
 try {

@@ -5,7 +5,7 @@ async function test() {
   try {
     const folders = await nfd.pickFolders({
       title: 'Select multiple folders',
-      defaultPath: process.cwd()
+      defaultPath: import.meta.dir
     });
     console.log('Selected folders:', folders);
   } catch (e) {

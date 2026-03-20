@@ -74,11 +74,16 @@ export function initFFI() {
     default: return;
   }
 
+  // Determine dynamic base directory for 'bin'
+  const currentDir = import.meta.dir;
+  const isDist = path.basename(currentDir) === 'dist';
+  const binDir = isDist ? path.join(currentDir, '..', 'bin') : path.join(currentDir, '..', '..', 'bin');
+
   // Common library search paths
   const searchPaths = [
-    path.join(__dirname, '..', '..', 'bin', process.platform, process.arch, libName),
-    path.join(__dirname, '..', '..', 'bin', `nfd-${process.platform === 'win32' ? 'win' : process.platform === 'darwin' ? 'mac' : 'linux'}-${process.arch === 'x64' ? 'x64' : 'arm64'}${process.platform === 'win32' ? '.dll' : process.platform === 'darwin' ? '.dylib' : '.so'}`),
-    path.join(__dirname, '..', '..', 'bin', libName),
+    path.join(binDir, process.platform, process.arch, libName),
+    path.join(binDir, `nfd-${process.platform === 'win32' ? 'win' : process.platform === 'darwin' ? 'mac' : 'linux'}-${process.arch === 'x64' ? 'x64' : 'arm64'}${process.platform === 'win32' ? '.dll' : process.platform === 'darwin' ? '.dylib' : '.so'}`),
+    path.join(binDir, libName),
     libName // System path fallback
   ];
 
