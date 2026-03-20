@@ -1,3 +1,4 @@
 [submodule "vendor/nfd-src"]
 	path = vendor/nfd-src
-	url = https://github.com/btzy/nativefiledialog-extended.git
+	url = https://github.com/Catharacta/nativefiledialog-extended.git
+	branch = main
