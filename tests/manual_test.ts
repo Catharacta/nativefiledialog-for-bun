@@ -2,11 +2,13 @@ import {
   openFile, 
   openFiles, 
   pickFolder, 
-  saveFile 
+  saveFile,
+  getBackendName
 } from '../src/index';
 
 async function test() {
   console.log('--- Native File Dialog Test ---');
+  console.log(`Active Backend: ${getBackendName()}`);
   
   try {
     console.log('1. Opening single file dialog...');

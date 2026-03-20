@@ -9,3 +9,6 @@ package-lock.json
 pnpm-lock.yaml
 build/
 bin/
+vendor/nfd-src/build/
+*.tmp
+*.manifest

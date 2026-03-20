@@ -48,6 +48,20 @@ function getBackend(): DialogBackend {
 }
 
 /**
+ * 現在使用されているバックエンドの名前を取得します ('ffi' | 'windows' | 'macos' | 'linux')。
+ * デバッグ用です。
+ */
+export function getBackendName(): string {
+  const backend = getBackend();
+  // We can distinguish based on the object
+  if (backend === (ffi as unknown as DialogBackend)) return 'ffi';
+  if (backend === (windows as DialogBackend)) return 'windows';
+  if (backend === (macos as DialogBackend)) return 'macos';
+  if (backend === (linux as DialogBackend)) return 'linux';
+  return 'unknown';
+}
+
+/**
  * ファイルを1つ選択するダイアログを表示します。
  */
 export async function openFile(options: OpenFileDialogOptions = {}): Promise<string | null> {

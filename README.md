@@ -14,11 +14,8 @@ This library provides a high-performance, Promise-based API for native file dial
 
 ## 🚀 Key Features
 
--   **Blazing Fast**: Directly calls native APIs via FFI (Bun.dlopen).
--   **Reliable Fallback**: Automatically falls back to system scripts (PowerShell, AppleScript, Zenity) if binaries are unavailable.
--   **Cross-Platform**: Full support for Windows, macOS, and Linux.
--   **Bun Optimized**: Specifically designed for the Bun runtime.
 -   **Auto-Download**: Automatically downloads pre-built binaries for your platform on installation.
+-   **High DPI Support**: Native Windows dialogs are now crisp and clear on 4K/high-resolution monitors (no more blurry UI).
 
 ## 📦 Installation
 
